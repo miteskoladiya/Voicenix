@@ -19,11 +19,15 @@ const Credits = () => {
 
     const updateUserToken=useMutation(api.users.UpdateUserToken);
 
-    const  CalculateProgress=()=>{
-if(userData?.subscriptionId){
-    return Number(userData.credits/50000)*100
+    const CalculateProgress = () => {
+        if (!userData?.credits) return 0;
+        
+        if (userData?.subscriptionId) {
+            return Number(userData.credits / 50000) * 100;
+        } else {
+            return Number(userData.credits / 10000) * 100;
+        }
     }
-}
 
 useEffect(() => {
 const script = document.createElement("script");
@@ -98,7 +102,7 @@ const MakePayment=(subscriptionId)=>{
         <hr className='my-3' />
         <div>
             <h2 className='font-bold'>Token Usage</h2>
-            <h2>{userData.credits}/{userData?.subscriptionId?'50,000':'10000'}</h2>
+            <h2>{userData?.credits || 0}/{userData?.subscriptionId ? '50,000' : '10,000'}</h2>
             <Progress value={CalculateProgress()} className='my-3' />
 
             <div className='flex mt-3 justify-between items-center'>

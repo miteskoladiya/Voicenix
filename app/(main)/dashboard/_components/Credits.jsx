@@ -20,10 +20,10 @@ const Credits = () => {
     const updateUserToken=useMutation(api.users.UpdateUserToken);
 
     const CalculateProgress = () => {
-        if (!userData?.credits) return 100; // Initial state shows full bar
+        if (!userData?.subscriptionId) return 100; // Show full bar for free plan
         
-        const maxTokens = userData?.subscriptionId ? 50000 : 10000;
-        return (userData.credits / maxTokens) * 100;
+        const maxTokens = 50000;
+        return (userData?.credits / maxTokens) * 100;
     }
 
 useEffect(() => {
@@ -52,9 +52,9 @@ const MakePayment=(subscriptionId)=>{
   const options = {
     key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID, 
     subscription_id: subscriptionId, 
-    name: "Ai Voice Agent",
+    name: "Ai Voice Agent(Voicenix)",
     description: "50,000 Tokens",
-    image: "/logo.svg",
+    image: "/t3.jpg",
     handler: async function(response) {
       if(response?.razorpay_payment_id){
         await updateUserToken({
@@ -97,7 +97,7 @@ const MakePayment=(subscriptionId)=>{
         <div>
             <h2 className='font-bold'>Token Usage</h2>
             <h2>
-                {userData?.credits || '10,000'}/
+                {!userData?.subscriptionId ? '10,000' : userData?.credits}/
                 {userData?.subscriptionId ? '50,000' : '10,000'}
             </h2>
             <Progress value={CalculateProgress()} className='my-3' />

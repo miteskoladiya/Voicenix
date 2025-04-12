@@ -48,7 +48,7 @@ const Feedback = () => {
           {discussionRoomList.map((item, index) => (item.coachingOptions==='Mock Interview'
           || item.coachingOptions==='Ques Ans Prep') &&
             (
-            <div key={index} className="border-b-[1px] pb-3 mb-4 group flex justify-between items-center cursor-pointer">
+            <div key={index} className="border-b-[1px] pb-3 mb-4  flex justify-between items-center cursor-pointer">
               <div className="flex gap-7 items-center">
                 <Image className="rounded-full h-[50px] w-[50px]  " src={GetAbstractImages(item.coachingOptions)} alt="abstract" height={70} width={70}/>
                 <div>
@@ -58,7 +58,7 @@ const Feedback = () => {
               </div>
             </div>
             <Link href={`/view-summery/${item._id}`} >
-            <Button className='invisible group-hover:visible' variant='outline'>View Feedback</Button>
+            <Button  variant='outline'>View Feedback</Button>
             </Link>
             </div>
           ))}
